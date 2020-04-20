@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 using trending_query_service.Dtos;
+using trending_query_service.Services;
 
 namespace trending_query_service.Controllers
 {
@@ -14,26 +15,20 @@ namespace trending_query_service.Controllers
     public class TrendingArticlesController : ControllerBase
     {
         private readonly ILogger<TrendingArticlesController> _logger;
+        private ITrendingArticlesService trendingArticlesService { get; }
 
         public TrendingArticlesController(ILogger<TrendingArticlesController> logger)
         {
             _logger = logger;
+            trendingArticlesService = new TrendingArticlesService();
         }
 
         public MixedTrendingArticles Get()
         {
             return new MixedTrendingArticles
             {
-                Short = new Guid[] {
-                    Guid.NewGuid(),
-                    Guid.NewGuid(),
-                    Guid.NewGuid(),
-                },
-                Long = new Guid[] {
-                    Guid.NewGuid(),
-                    Guid.NewGuid(),
-                    Guid.NewGuid(),
-                }
+                Short = trendingArticlesService.GetShort(),
+                Long = trendingArticlesService.GetLong()
             };
         }
     }
