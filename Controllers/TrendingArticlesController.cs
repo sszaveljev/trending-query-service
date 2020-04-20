@@ -15,20 +15,20 @@ namespace trending_query_service.Controllers
     public class TrendingArticlesController : ControllerBase
     {
         private readonly ILogger<TrendingArticlesController> _logger;
-        private ITrendingArticlesService trendingArticlesService { get; }
+        private ITrendingArticlesService _trendingArticlesService { get; }
 
-        public TrendingArticlesController(ILogger<TrendingArticlesController> logger)
+        public TrendingArticlesController(ILogger<TrendingArticlesController> logger, ITrendingArticlesService trendingArticlesService)
         {
             _logger = logger;
-            trendingArticlesService = new TrendingArticlesService();
+            _trendingArticlesService = trendingArticlesService;
         }
 
         public MixedTrendingArticles Get()
         {
             return new MixedTrendingArticles
             {
-                Short = trendingArticlesService.GetShort(),
-                Long = trendingArticlesService.GetLong()
+                Short = _trendingArticlesService.GetShort(),
+                Long = _trendingArticlesService.GetLong()
             };
         }
     }
