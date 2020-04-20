@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using trending_query_service.Dtos;
+
 namespace trending_query_service.Controllers
 {
     [ApiController]
@@ -18,11 +20,20 @@ namespace trending_query_service.Controllers
             _logger = logger;
         }
 
-        public IEnumerable<Guid> Get()
+        public MixedTrendingArticles Get()
         {
-            return new Guid[] {
-                Guid.NewGuid(),
-                Guid.NewGuid()
+            return new MixedTrendingArticles
+            {
+                Short = new Guid[] {
+                    Guid.NewGuid(),
+                    Guid.NewGuid(),
+                    Guid.NewGuid(),
+                },
+                Long = new Guid[] {
+                    Guid.NewGuid(),
+                    Guid.NewGuid(),
+                    Guid.NewGuid(),
+                }
             };
         }
     }
